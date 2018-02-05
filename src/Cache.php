@@ -31,7 +31,7 @@ class Cache
     private $clear_cache = null;
     protected $url;
     protected $pool;
-	private $path_config;
+	private $path = __DIR__ . '/';
  
     public function __construct($config = [])
     {
@@ -69,14 +69,16 @@ class Cache
         $this->driver();
     }
  
-    public function get_config($path = null)
+    public function set_config($path = null)
     {
 		if(isset($path)) {
-            $this->path_config = $path;
-        } else {
-            $this->path_config = __DIR__;
+            $this->path = $path;
         }
-		return json_decode($this->path_config.'/config.json', true);
+	}
+ 
+    public function get_config()
+    {
+		return json_decode($this->path.'config.json', true);
 	}
  
     public function run($url, $cache_lifetime = null)
