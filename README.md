@@ -44,7 +44,7 @@ if ($cache->run($url, $cache_lifetime) === null) {
   }
 }
 ```
-### (AutoRequire)[https://github.com/pllano/auto-require]
+### [AutoRequire](https://github.com/pllano/auto-require)
 ```json
 {
   "require": [{
