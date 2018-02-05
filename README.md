@@ -23,7 +23,7 @@ use Pllano\Caching\Cache;
 // Передать конфигурацию в конструктор
 // Если передать пустой массив [] возмет конфигурацию из файла cache_config.json
 $cache_config = [];
-$url = 'site/index'; // Установить url или ключ
+$key = 'site/index'; // Передать url или ключ без кодирования
 $cache_lifetime = 30*24*60*60; // Установить время жизни кеша
 // Подключить класс
 $cache = new Cache($cache_config);
@@ -31,7 +31,7 @@ $cache = new Cache($cache_config);
 // $path = __DIR__ . '/../configs/';
 // $cache->set_config($path);
 // Проверяем статус кеширования и наличие кеша
-if ($cache->run($url, $cache_lifetime) === null) {
+if ($cache->run($key, $cache_lifetime) === null) {
     $content = []; // Получаем массив данных из базы
     // Если кеширование включено сохраняем кеш
     if ((int)$cache->state() == 1) {
