@@ -40,7 +40,7 @@ if ($cache->run($url, $cache_lifetime) === null) {
 ```json
 {
   "require": {
-    "pllano/cache": "~1.0.0"
+    "pllano/cache": "~1.0.1"
   }
 }
 ```
