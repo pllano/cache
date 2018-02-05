@@ -15,13 +15,13 @@
 - `doctrine` - дорабатывается
 ## Конфигурация
 Передать конфигурацию можно двумя способами:
-- Из фала [`config.json`](https://github.com/pllano/cache/blob/master/src/config.json)
+- Из фала [`cache_config.json`](https://github.com/pllano/cache/blob/master/src/cache_config.json)
 - Массивом в конструктор `$config = [];`
 ## Использование
 ```php
 use Pllano\Caching\Cache;
 // Передать конфигурацию 
-// Если передать пустой массив [] возмет конфигурацию из файла config.json
+// Если передать пустой массив [] возмет конфигурацию из файла cache_config.json
 $config = [];
 $url = 'site/index'; // Установить url или ключ
 $cache_lifetime = 30*24*60*60; // Установить время жизни кеша
