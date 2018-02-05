@@ -32,7 +32,7 @@ $cache = new Cache($config);
 // $cache->set_config($path);
 // Проверяем статус кеширования и наличие кеша
 if ($cache->run($url, $cache_lifetime) === null) {
-    $content = ''; // Получаем данные из базы
+    $content = []; // Получаем массив данных из базы
     // Если кеширование включено сохраняем кеш
     if ((int)$cache->state() == 1) {
         $cache->set($content);
