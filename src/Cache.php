@@ -3,9 +3,9 @@
  * This file is part of the API SHOP
  *
  * @license http://opensource.org/licenses/MIT
- * @link https://github.com/pllano/api-shop
+ * @link https://github.com/pllano/cache
  * @version 1.0.1
- * @package pllano.api-shop
+ * @package pllano.cache
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -35,7 +35,7 @@ class Cache
  
     public function __construct($config = [])
     {
-        if(isset($config['0'])) {
+        if(isset($config)) {
 			$use_config = $config;
 		} else {
 		    $use_config = $this->get_config();
