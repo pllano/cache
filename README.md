@@ -47,7 +47,7 @@ if ($cache->run($key, $cache_lifetime) === null) {
 }
 ```
 ## Установка
-### Composer
+### С помощью Composer
 ```json
 {
   "require": {
@@ -55,7 +55,7 @@ if ($cache->run($key, $cache_lifetime) === null) {
   }
 }
 ```
-### [AutoRequire](https://github.com/pllano/auto-require)
+### С помощью [AutoRequire](https://github.com/pllano/auto-require)
 ```json
 {
   "require": [{
