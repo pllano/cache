@@ -27,8 +27,8 @@ use Pllano\Caching\Cache;
 // Если передать пустой массив [] возмет конфигурацию из файла cache_config.json
 $cache_config = [];
 $key = 'site/index'; // Передать url или ключ без кодирования
-// $key = 'https://example.com/to/patch?param=data&lang=ru';
-$cache_lifetime = 30*24*60*60; // Установить время жизни кеша
+// $key = 'https://example.com/to/patch?param=data/lang=ru'; // При мультиязычности рекомендуется добавлять язык
+$cache_lifetime = 30*24*60*60; // Установить время жизни кеша. в примере установлено 30 дней.
 // Подключить класс
 $cache = new Cache($cache_config);
 // Установить путь к файлу конфигурации
