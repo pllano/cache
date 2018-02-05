@@ -1,19 +1,18 @@
 {
-	"name":"pllano/cache",
+	"name": "pllano/cache",
 	"type": "library",
 	"description": "Caching for API Shop",
 	"keywords": ["caching", "cache"],
 	"license": "MIT",
 	"homepage": "https://github.com/pllano/cache",
-	"authors": [
-		{
+	"authors": [{
 			"name": "pllano",
 			"email": "open.source@pllano.com",
 			"homepage": "https://pllano.com/"
 		}
 	],
-	"require":{
-		"php":">=5.4.0"
+	"require": {
+		"php": ">=5.4.0"
 	},
 	"require-dev": {
 		"elasticsearch/elasticsearch": "~6.0"
