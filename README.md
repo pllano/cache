@@ -13,6 +13,10 @@
 - `array` - дорабатывается
 - `illuminate` - дорабатывается
 - `doctrine` - дорабатывается
+## Конфигурация
+Передать конфигурацию можно двумя способами:
+- Из фала [`config.json`](https://github.com/pllano/cache/blob/master/src/config.json)
+- Массивом в конструктор `$config = [];`
 ## Использование
 ```php
 use Pllano\Caching\Cache;
