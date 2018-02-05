@@ -20,13 +20,13 @@
 ## Использование
 ```php
 use Pllano\Caching\Cache;
-// Передать конфигурацию 
+// Передать конфигурацию в конструктор
 // Если передать пустой массив [] возмет конфигурацию из файла cache_config.json
-$config = [];
+$cache_config = [];
 $url = 'site/index'; // Установить url или ключ
 $cache_lifetime = 30*24*60*60; // Установить время жизни кеша
 // Подключить класс
-$cache = new Cache($config);
+$cache = new Cache($cache_config);
 // Установить путь к файлу конфигурации
 // $path = __DIR__ . '/../configs/';
 // $cache->set_config($path);
