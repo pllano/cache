@@ -23,6 +23,9 @@ $url = 'site/index'; // Установить url или ключ
 $cache_lifetime = 30*24*60*60; // Установить время жизни кеша
 // Подключить класс
 $cache = new Cache($config);
+// Установить путь к файлу конфигурации
+// $path = __DIR__ . '/../configs/';
+// $cache->set_config($path);
 // Проверяем статус кеширования и наличие кеша
 if ($cache->run($url, $cache_lifetime) === null) {
     $content = ''; // Получаем данные из базы
