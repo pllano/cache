@@ -1,4 +1,7 @@
 # Кеширование для вашего проекта
+## Демо и тесты
+- Демо - https://xti.com.ua/
+- Тест скорости - https://developers.google.com/speed/pagespeed/insights/?url=https://xti.com.ua
 ## Поддерживаемые типы кеша
 - `memcached` - стабильно
 - `memcache` - стабильно
