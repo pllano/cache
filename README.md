@@ -5,7 +5,7 @@
 ```json
 {
   "require": {
-    "pllano/cache": "^1.0.0"
+    "pllano/cache": "~1.0.0"
   }
 }
 ```
