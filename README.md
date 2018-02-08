@@ -109,16 +109,6 @@ if ($cache->run_html($key, $cache_lifetime) === null) {
       "state": "1",
       "system_package": "0"
     }, {
-      "namespace": "MongoDB",
-      "dir": "/mongodb/mongo-php-library/src",
-      "link": "https://github.com/mongodb/mongo-php-library/archive/1.2.0.zip",
-      "git": "https://github.com/mongodb/mongo-php-library",
-      "name": "mongo-php-library",
-      "version": "1.2.0",
-      "vendor": "mongodb",
-      "state": "1",
-      "system_package": "0"
-    }, {
       "namespace": "League\\Flysystem",
       "dir": "/league/flysystem/src",
       "link": "https://github.com/thephpleague/flysystem/archive/1.0.42.zip",
