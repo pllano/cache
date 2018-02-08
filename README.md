@@ -39,11 +39,11 @@ if ($cache->run($key, $cache_lifetime) === null) {
     $content = []; // Получаем массив данных из базы
     // Если кеширование включено сохраняем кеш
     if ((int)$cache->state() == 1) {
-        $cache->set($content);
+        $cache->set($content, $key);
     }
 } else {
     // Если кеширование включено и кеш существует вернет массив данных из кеша
-    $content = $cache->get();
+    $content = $cache->get($key);
 }
 ```
 ## Установка
