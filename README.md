@@ -67,11 +67,12 @@ if ($cache->run_html($key, $cache_lifetime) === null) {
 ```
 ## Установка
 ### Подключить с помощью Composer
-```json
-{
-  "require": {
-    "pllano/cache": "~1.0.1"
-  }
+```diff
+"require" {
+    ...
+-    "pllano/cache": "1.0.0",
++    "pllano/cache": "1.0.1",
+    ...
 }
 ```
 ### Подключить с помощью [AutoRequire](https://github.com/pllano/auto-require)
