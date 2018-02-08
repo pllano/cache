@@ -70,8 +70,8 @@ if ($cache->run_html($key, $cache_lifetime) === null) {
 ```diff
 "require" {
     ...
--    "pllano/cache": "1.0.0",
-+    "pllano/cache": "1.0.1",
+-    "pllano/cache": "1.0.1",
++    "pllano/cache": "1.0.2",
     ...
 }
 ```
