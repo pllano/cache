@@ -21,27 +21,29 @@ class Cache
     private $state;
     private $dynamic;
     private $driver;
-    private $www;
+    private $www = __DIR__ . '/../../../../';
     private $cpu = '80';
     private $memory = '80';
     private $print = 0;
-    private $cache_lifetime = 60;
+    private $cache_lifetime = 3600;
     private $meminfo;
     private $nproc;
     private $clear_cache = null;
     protected $url;
     protected $pool;
-	private $path = __DIR__ . '/';
+    private $path = __DIR__ . '/';
  
     public function __construct($config = [])
     {
-        if(isset($config)) {
+        // Подключаем конфиг из конструктора
+        if(isset($config['cache']['state'])) {
 			$use_config = $config;
-		} else {
+        } else {
+		    // Если в конструкторе пусто загружаем из файла
 		    $use_config = $this->get_config();
-		}
- 
-		$this->clear_cache = (int)$use_config['cache']['clear'];
+        }
+        // Присваиваем значения
+        $this->clear_cache = (int)$use_config['cache']['clear'];
         $this->state = (int)$use_config['cache']['state'];
         $this->dynamic = (int)$use_config['cache']['dynamic'];
         $this->driver = $use_config['cache']['driver'];
@@ -50,7 +52,7 @@ class Cache
         $this->cpu = $use_config['cache']['cpu'];
         $this->print = (int)$use_config['cache']['print'];
         $this->memory = $use_config['cache']['memory'];
- 
+        // Проверяем наличие папки для файлового кеша, если нет создаем
         if (!file_exists($this->www.'/cache')) {
             mkdir($this->www.'/cache', 0777, true);
         }
@@ -71,15 +73,15 @@ class Cache
  
     public function set_config($path = null)
     {
-		if(isset($path)) {
+        if(isset($path)) {
             $this->path = $path;
         }
-	}
+    }
  
     public function get_config()
     {
-		return json_decode($this->path.'config.json', true);
-	}
+        return json_decode(file_get_contents($this->path.'cache_config.json'), true);
+    }
  
     public function run($url, $cache_lifetime = null)
     {
@@ -111,8 +113,11 @@ class Cache
         }
     }
  
-    public function get()
+    public function get($url = null)
     {
+        if($url != null) {
+            $this->url = $url;
+        }
         $key = $this->key($this->url);
         $driver = strtolower($this->driver);
         if ($driver == 'json') {
@@ -134,8 +139,11 @@ class Cache
         }
     }
  
-    public function set($content)
+    public function set($content, $url = null)
     {
+        if($url != null) {
+            $this->url = $url;
+        }
         $key = $this->key($this->url);
         $driver = strtolower($this->driver);
         if ($driver == 'json') {
@@ -148,6 +156,63 @@ class Cache
             $item->expiresAfter($this->cache_lifetime);
             $this->pool->save($item);
         }
+    }
+
+    public function run_html($url, $cache_lifetime = null)
+    {
+        if(isset($cache_lifetime)) {
+            $this->cache_lifetime = (int)$cache_lifetime;
+        }
+        if($url != null) {
+            $this->url = $url;
+        }
+        if ($this->state == 1) {
+            $key = $this->key($this->url);
+            $item = $this->pool->getItem($key);
+            $content = $item->get();
+            $content = unserialize($content);
+            if($content) {
+                return true;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+ 
+    public function get_html($url = null)
+    {
+        if($url != null) {
+            $this->url = $url;
+        }
+        $key = $this->key($this->url);
+        $item = $this->pool->getItem($key);
+        $content = $item->get();
+        $content = unserialize($content);
+        if($content) {
+            if ($this->print == 1) {
+                print("<br>url: <strong>{$this->url}</strong> - content из кеша");
+                print("<br>key: {$key}");
+                print("<br>Время жизни кеша, сек.: {$this->cache_lifetime}<br>");
+            }
+            return $content;
+        } else {
+            return null;
+        }
+    }
+ 
+    public function set_html($content, $url = null)
+    {
+        if($url != null) {
+            $this->url = $url;
+        }
+        $content = serialize($content);
+        $key = $this->key($this->url);
+        $item = $this->pool->getItem($key);
+        $item->set($content);
+        $item->expiresAfter($this->cache_lifetime);
+        $this->pool->save($item);
     }
  
     public function state()
@@ -189,10 +254,6 @@ class Cache
         } elseif ($driver == 'predis' || $driver == 'redis') {
             $client = new \Predis\Client('tcp:/'.$this->config['host'].':'.$this->config['port']);
             $this->pool = new $this->config['pool']($client);
-        } elseif ($driver == 'mongodb') {
-            $manager = new $this->config['manager']('mongodb://'.getenv('MONGODB_HOST'));
-            $collection = $this->config['pool']::createCollection($manager, $this->config['host'].':'.$this->config['port'], $this->config['name']);
-            $this->pool = new $this->config['pool']($collection);
         } elseif ($driver == 'illuminate') {
             // Create an instance of an Illuminate's Store
             $store = new $this->config['store']();
@@ -242,6 +303,19 @@ class Cache
         if ($this->print == 1) {
             print("<br>driver: <strong>{$this->driver}</strong> - state: {$this->state}");
         }
+    }
+ 
+    public function get_ip()
+    {
+        if (!empty($_SERVER['HTTP_CLIENT_IP']))
+        {
+            $ip=$_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            $ip=$_SERVER['REMOTE_ADDR'];
+        }
+        return $ip;
     }
  
 }
