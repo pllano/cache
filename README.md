@@ -51,6 +51,20 @@ if ($cache->run($key, $cache_lifetime) === null) {
     $content = $cache->get($key);
 }
 ```
+### Передать html код 
+```php
+// $cache->run_html();
+// $cache->set_html();
+// $cache->get_html();
+ 
+if ($cache->run_html($key, $cache_lifetime) === null) {
+    if ((int)$cache->state() == 1) {
+        $cache->set_html($content, $key);
+    }
+} else {
+    $content = $cache->get_html($key);
+}
+```
 ## Установка
 ### Подключить с помощью Composer
 ```json
