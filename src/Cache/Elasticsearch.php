@@ -17,15 +17,15 @@ class Elasticsearch {
  
     private $config;
     private $cache_lifetime;
-	private $host;
-	private $port;
-	private $type;
-	private $index;
-	private $auth;
-	private $user;
-	private $password;
-	private $content;
-	private $key;
+    private $host;
+    private $port;
+    private $type;
+    private $index;
+    private $auth;
+    private $user;
+    private $password;
+    private $content;
+    private $key;
  
     public function __construct($config)
     {

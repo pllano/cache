@@ -33,25 +33,29 @@ class Cache
     protected $pool;
     private $path = __DIR__ . '/';
  
-    public function __construct($config = [])
+    public function __construct($config = [], $driver = null)
     {
         // Подключаем конфиг из конструктора
         if(isset($config['cache']['state'])) {
-			$use_config = $config;
+			$conf = $config;
         } else {
 		    // Если в конструкторе пусто загружаем из файла
-		    $use_config = $this->get_config();
+		    $conf = $this->get_config();
         }
+		if($driver !== null) {
+            $this->driver = $driver;
+		} else {
+		    $this->driver = $conf['cache']['driver'];
+		}
         // Присваиваем значения
-        $this->clear_cache = (int)$use_config['cache']['clear'];
-        $this->state = (int)$use_config['cache']['state'];
-        $this->dynamic = (int)$use_config['cache']['dynamic'];
-        $this->driver = $use_config['cache']['driver'];
-        $this->cache_lifetime = (int)$use_config['cache']['cache_lifetime'];
-        $this->www = $use_config['dir']['www'];
-        $this->cpu = $use_config['cache']['cpu'];
-        $this->print = (int)$use_config['cache']['print'];
-        $this->memory = $use_config['cache']['memory'];
+        $this->clear_cache = (int)$conf['cache']['clear'];
+        $this->state = (int)$conf['cache']['state'];
+        $this->dynamic = (int)$conf['cache']['dynamic'];
+        $this->cache_lifetime = (int)$conf['cache']['cache_lifetime'];
+        $this->www = $conf['dir']['www'];
+        $this->cpu = $conf['cache']['cpu'];
+        $this->print = (int)$conf['cache']['print'];
+        $this->memory = $conf['cache']['memory'];
         // Проверяем наличие папки для файлового кеша, если нет создаем
         if (!file_exists($this->www.'/cache')) {
             mkdir($this->www.'/cache', 0777, true);
@@ -62,16 +66,15 @@ class Cache
             $htaccess .= 'Deny from all';
             file_put_contents($this->www.'/cache/.htaccess', $htaccess);
         }
- 
         // Запускаем тесты нагрузки на сервер
         $this->_server();
         // Устанавливаем конфигурацию для драйвера
-        $this->config = $use_config['cache'][$this->driver];
+        $this->config = $conf['cache'][$this->driver];
         // Запускаем драйвер
         $this->driver();
     }
  
-    public function set_config($path = null)
+    public function set_path($path = null)
     {
         if(isset($path)) {
             $this->path = $path;

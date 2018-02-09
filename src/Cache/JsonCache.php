@@ -40,7 +40,7 @@ class JsonCache {
             $content = json_decode(file_get_contents($this->file), true);
             $this->content = $content;
         } else {
-            $this->content = null;
+            $this->content = '';
         }
     }
  
