@@ -37,16 +37,16 @@ class Cache
     {
         // Подключаем конфиг из конструктора
         if(isset($config['cache']['state'])) {
-			$conf = $config;
+            $conf = $config;
         } else {
-		    // Если в конструкторе пусто загружаем из файла
-		    $conf = $this->get_config();
+            // Если в конструкторе пусто загружаем из файла
+            $conf = $this->get_config();
         }
-		if($driver !== null) {
+        if($driver !== null) {
             $this->driver = $driver;
-		} else {
-		    $this->driver = $conf['cache']['driver'];
-		}
+        } else {
+            $this->driver = $conf['cache']['driver'];
+        }
         // Присваиваем значения
         $this->clear_cache = (int)$conf['cache']['clear'];
         $this->state = (int)$conf['cache']['state'];
