@@ -35,12 +35,12 @@ class JsonCache {
  
     public function getItem($key)
     {
-        $this->file = $this->path.'/'.$key.'.json';
+		$this->file = $this->path.'/'.$key.'.json';
         if (file_exists($this->file)) {
             $content = json_decode(file_get_contents($this->file), true);
             $this->content = $content;
         } else {
-            $this->content = '';
+            $this->content = null;
         }
     }
  
@@ -55,7 +55,7 @@ class JsonCache {
  
     public function set($content)
     {
-        $this->content = json_encode($content);
+		$this->content = json_encode($content);
     }
  
     public function save()

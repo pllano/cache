@@ -144,7 +144,7 @@ class Cache
  
     public function set($content, $url = null)
     {
-        if($url != null) {
+		if($url != null) {
             $this->url = $url;
         }
         $key = $this->key($this->url);
