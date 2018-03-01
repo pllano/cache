@@ -1,14 +1,14 @@
 {
     "cache": {
         "state": 1,
+		"driver": "filesystem",
         "dynamic": 0,
         "print": 0,
         "cache_lifetime": 360,
         "cpu": 80,
         "memory": 80,
-        "vendor": "cache",
-        "driver": "filesystem",
-        "adapter": "apishop",
+        "vendor": "cache.cache",
+        "adapter": "pllano.cache",
         "clear": 0,
         "test": {
             "pool": "\\Pllano\\Caching\\Cache\\TestCache",
