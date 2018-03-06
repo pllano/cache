@@ -35,11 +35,24 @@ class Server {
             $arr['Cached'] = $this->format_size(str_replace(['Cached:', 'kB', ' '], '', $meminfo['4']));
             $arr['SwapTotal'] = $this->format_size(str_replace(['SwapTotal:', 'kB', ' '], '', $meminfo['14']));
             $arr['SwapFree'] = $this->format_size(str_replace(['SwapFree:', 'kB', ' '], '', $meminfo['15']));
+			$arr['MemUsed'] = $arr['MemTotal'] - $arr['MemFree'];
             //print_r($arr);
             return $arr;
         } else {
             return null;
         }
+    }
+	
+    public function memory_free()
+    {
+        $meminfo = meminfo();
+	    return round($meminfo['MemFree'] / ($meminfo['MemTotal'] / 100), 2);
+    }
+
+    public function memory_used()
+    {
+        $meminfo = meminfo();
+	    return round($meminfo['MemUsed'] / ($meminfo['MemTotal'] / 100), 2);
     }
  
     public function cpuinfo()

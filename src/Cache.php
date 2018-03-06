@@ -281,7 +281,7 @@ class Cache
         $this->meminfo = $server->meminfo();
         $this->nproc = $server->nproc();
  
-        $memory = round($this->meminfo['MemFree'] / ($this->meminfo['MemTotal'] / 100),2);
+        $memory = round($this->meminfo['MemUsed'] / ($this->meminfo['MemTotal'] / 100), 2);
         $cpu = $this->nproc/100*$this->cpu;
         $cpu_r = $this->nproc/100*80;
  
@@ -307,16 +307,17 @@ class Cache
             print("<br>driver: <strong>{$this->driver}</strong> - state: {$this->state}");
         }
     }
- 
+
     public function get_ip()
     {
-        if (!empty($_SERVER['HTTP_CLIENT_IP']))
-        {
-            $ip=$_SERVER['HTTP_CLIENT_IP'];
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
         } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } elseif (!empty($_SERVER['HTTP_X_REAL_IP'])) {
+            $ip = $_SERVER['HTTP_X_REAL_IP'];
         } else {
-            $ip=$_SERVER['REMOTE_ADDR'];
+            $ip = $_SERVER['REMOTE_ADDR'];
         }
         return $ip;
     }
